@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+$bg: #232946 !default;
+$text: #fffffe !default;
+$support: #b8c1ec !default;
+$accent: #eebbc3 !default;
+$sidebar: #2d3143 !default;
+
+* {
+  color: $text;
+  font-family: 'Atkinson Hyperlegible';
+  padding: 0;
+  margin: 0;
+  transition: all 0.5s ease;
+}
+html,
+body {
+  background-color: $bg;
+}
+
+input {
+  background: transparent;
+  border: 1px solid rgba(238, 187, 195, 0.38);
+  border-radius: 6px;
+  padding: 0.5rem 0.7rem;
+  width: 100%;
+  &:focus {
+    outline: none;
+    border-color: $accent;
+  }
+  &::placeholder {
+    color: rgba(238, 187, 195, 0.7);
+  }
+}
+
+button {
+  cursor: pointer;
+  background-color: transparent;
+  color: $accent;
+  border: 1px solid $accent;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
+  border-radius: 6px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+
+  font-size: 16px;
+  &:hover {
+    background-color: $accent;
+    color: $bg;
+    svg {
+      fill: $bg;
+    }
+  }
+  &:active {
+    background-color: #c47f8a;
+    border-color: #c47f8a;
+  }
+  &:disabled {
+    border-color: gray;
+    &:hover {
+      background-color: transparent;
+    }
+  }
+  & > * {
+    color: $accent;
+    &:hover {
+      color: $bg;
+    }
+  }
+  svg {
+    fill: $accent;
+  }
+}

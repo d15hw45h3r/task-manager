@@ -1,22 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-
-$bg: #232946;
-$text: #fffffe;
-$support: #b8c1ec;
-$accent: #eebbc3;
-$sidebar: #2d3143;
-
-* {
-  color: $text;
-  font-family: 'Atkinson Hyperlegible';
-  padding: 0;
-  margin: 0;
-  transition: all 0.5s ease;
-}
-html,
-body {
-  background-color: $bg;
-}
+@import './global';
 
 .container {
   padding: 0;
@@ -33,89 +15,9 @@ body {
   height: 100%;
 }
 
-.sidebar {
-  background-color: $sidebar;
-  width: 40%;
-  height: 100%;
-  padding: 1rem;
-  padding-top: 4rem;
-}
-
-.main {
-  width: 100%;
-  padding: 1rem;
-  padding-top: 4rem;
-}
-
-button {
-  cursor: pointer;
-  background-color: transparent;
-  color: $accent;
-  border: 1px solid $accent;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  padding-top: 0.4rem;
-  padding-bottom: 0.4rem;
-  border-radius: 6px;
-
-  font-size: 16px;
-  &:hover {
-    background-color: $accent;
-    color: $bg;
-  }
-  &:active {
-    background-color: #c47f8a;
-    border-color: #c47f8a;
-  }
-  &:disabled {
-    border-color: gray;
-    &:hover {
-      background-color: transparent;
-    }
-  }
-}
 button.sm {
   padding-left: 0.4rem;
   padding-right: 0.4rem;
   padding-top: 0.2rem;
   padding-bottom: 0.2rem;
-}
-
-.heading {
-  display: flex;
-  gap: 1.5rem;
-  flex-wrap: wrap;
-  // margin-bottom: 3rem;
-}
-
-ul {
-  list-style-type: none;
-}
-
-.task {
-  padding: 0.5rem;
-  border-bottom: 1px solid rgba(238, 187, 195, 0.38);
-  display: flex;
-  justify-content: space-between;
-}
-
-.input {
-  display: flex;
-  gap: 0.3rem;
-  margin-top: 1rem;
-}
-
-input {
-  background: transparent;
-  border: 1px solid rgba(238, 187, 195, 0.38);
-  border-radius: 6px;
-  padding: 0.5rem 0.7rem;
-  width: 100%;
-  &:focus {
-    outline: none;
-    border-color: $accent;
-  }
-  &::placeholder {
-    color: rgba(238, 187, 195, 0.7);
-  }
 }

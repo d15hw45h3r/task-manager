@@ -1,0 +1,41 @@
+@import '../../global';
+
+.sidebar {
+  background-color: $sidebar;
+  width: 40%;
+  height: 100%;
+  padding: 1rem;
+  padding-top: 4rem;
+}
+
+.heading {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  // margin-bottom: 3rem;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.task {
+  padding: 0.5rem;
+  border-bottom: 1px solid rgba(238, 187, 195, 0.38);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  &:hover {
+    background-color: rgba(238, 187, 195, 0.2);
+  }
+}
+.active {
+  background-color: rgba(238, 187, 195, 0.1);
+}
+
+.input {
+  display: flex;
+  gap: 0.3rem;
+  margin-top: 1rem;
+}
