@@ -1,13 +1,18 @@
-type Task = {
+type TaskBase = {
   name: string;
-  // isCompleted: boolean;
 };
+
+interface Task extends TaskBase {
+  id: string;
+  // isCompleted: boolean;
+}
 
 type TaskList = Task[];
 
 type EventPayloadMapping = {
   getTaskList: TaskList;
   addTask: void;
+  deleteTask: void;
 };
 
 type UnsubscribeFunction = () => void;
@@ -15,6 +20,7 @@ type UnsubscribeFunction = () => void;
 interface Window {
   electron: {
     getTaskList: () => Promise<TaskList>;
-    addTask: (data: any) => Promise<void>;
+    addTask: (data: TaskBase) => Promise<void>;
+    deleteTask: (id: string) => Promise<void>;
   };
 }

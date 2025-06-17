@@ -1,5 +1,6 @@
 import { app } from 'electron';
 import * as fs from 'fs';
+import { nanoid } from 'nanoid';
 import * as path from 'path';
 
 const userDataPath = app.getPath('appData');
@@ -27,22 +28,55 @@ function ensureFileExistence(filePath: string): void {
   }
 }
 
-export function addTask(task: Task): void {
-  // const timestamp = Date.now().toString();
-  const directoryPath = path.join(parentDirectoryPath);
-  const filePath = path.join(directoryPath, 'output.json');
-  ensureFileExistence(filePath);
+export async function addTask(task: TaskBase): Promise<void> {
+  const filePath = path.join(parentDirectoryPath, 'output.json');
+  await ensureFileExistence(filePath);
 
-  let obj: TaskList = [];
+  return new Promise((resolve, reject) => {
+    fs.readFile(filePath, 'utf-8', (readErr, data) => {
+      if (readErr) return reject(readErr);
 
-  fs.readFile(filePath, (err, data: any) => {
-    if (err) {
-      throw new Error(err.message);
-    } else {
-      obj = JSON.parse(data);
-      obj.push(task);
-      fs.writeFileSync(filePath, JSON.stringify(obj, null, 2), 'utf-8');
-    }
+      let obj: TaskList = [];
+
+      try {
+        obj = JSON.parse(data);
+      } catch (parseErr) {
+        return reject(parseErr);
+      }
+
+      obj.push({ ...task, id: nanoid() });
+
+      fs.writeFile(filePath, JSON.stringify(obj, null, 2), 'utf-8', (writeErr) => {
+        if (writeErr) return reject(writeErr);
+        resolve();
+      });
+    });
+  });
+}
+
+export async function deleteTask(id: string): Promise<void> {
+  const filePath = path.join(parentDirectoryPath, 'output.json');
+  await ensureFileExistence(filePath);
+
+  return new Promise((resolve, reject) => {
+    fs.readFile(filePath, 'utf-8', (readErr, data) => {
+      if (readErr) return reject(readErr);
+
+      let obj: TaskList = [];
+
+      try {
+        obj = JSON.parse(data);
+      } catch (parseErr) {
+        return reject(parseErr);
+      }
+
+      obj = obj.filter((task) => task.id !== id);
+
+      fs.writeFile(filePath, JSON.stringify(obj, null, 2), 'utf-8', (writeErr) => {
+        if (writeErr) return reject(writeErr);
+        resolve();
+      });
+    });
   });
 }
 

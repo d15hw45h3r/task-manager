@@ -2,7 +2,7 @@ import { app, BrowserWindow } from 'electron';
 
 import { ipcMainHandle, isDev } from './util.js';
 import { getPreloadPath, getUIPath } from './pathResolver.js';
-import { getTaskList, addTask } from './fileOperations.js';
+import { getTaskList, addTask, deleteTask } from './fileOperations.js';
 
 app.on('ready', () => {
   const mainWindow = new BrowserWindow({
@@ -21,6 +21,10 @@ app.on('ready', () => {
   });
 
   ipcMainHandle('addTask', async (data) => {
-    await addTask(data);
+    return await addTask(data);
+  });
+
+  ipcMainHandle('deleteTask', async (id) => {
+    return await deleteTask(id);
   });
 });

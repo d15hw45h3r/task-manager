@@ -3,6 +3,7 @@ const electron = require('electron');
 electron.contextBridge.exposeInMainWorld('electron', {
   getTaskList: () => ipcInvoke('getTaskList'),
   addTask: (data) => ipcInvoke('addTask', data),
+  deleteTask: (id) => ipcInvoke('deleteTask', id),
 } satisfies Window['electron']);
 
 // to get async data
