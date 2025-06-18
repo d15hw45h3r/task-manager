@@ -1,4 +1,4 @@
-@import '../../global';
+@use '../../global';
 
 .main {
   width: 100%;
@@ -6,11 +6,12 @@
   padding-top: 4rem;
   margin: 0 auto;
   text-align: center;
+  overflow-y: auto;
 }
 
 .timer {
   font-size: 64px;
-  color: $support;
+  color: global.$support;
 }
 
 .history {

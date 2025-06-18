@@ -1,7 +1,7 @@
-@import '../../global';
+@use '../../global';
 
 .sidebar {
-  background-color: $sidebar;
+  background-color: global.$sidebar;
   width: 40%;
   height: 100%;
   padding: 1rem;
@@ -31,7 +31,7 @@ ul {
     background-color: rgba(238, 187, 195, 0.2);
   }
   .elapsed {
-    color: $support;
+    color: global.$support;
   }
 }
 .active {
