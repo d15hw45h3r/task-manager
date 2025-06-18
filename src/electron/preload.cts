@@ -4,6 +4,8 @@ electron.contextBridge.exposeInMainWorld('electron', {
   getTaskList: () => ipcInvoke('getTaskList'),
   addTask: (data) => ipcInvoke('addTask', data),
   deleteTask: (id) => ipcInvoke('deleteTask', id),
+  getTask: (id) => ipcInvoke('getTask', id),
+  updateTaskTime: (id, time) => ipcInvoke('updateTaskTime', { id, time }),
 } satisfies Window['electron']);
 
 // to get async data

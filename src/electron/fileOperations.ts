@@ -28,6 +28,18 @@ function ensureFileExistence(filePath: string): void {
   }
 }
 
+// Read data from a file
+export function getTaskList(): TaskList {
+  ensureICSDirectory();
+  const filePath = path.join(parentDirectoryPath, 'output.json');
+  if (fs.existsSync(filePath)) {
+    const data = fs.readFileSync(filePath, 'utf-8');
+    return JSON.parse(data);
+  } else {
+    return [];
+  }
+}
+
 export async function addTask(task: TaskBase): Promise<void> {
   const filePath = path.join(parentDirectoryPath, 'output.json');
   await ensureFileExistence(filePath);
@@ -44,7 +56,7 @@ export async function addTask(task: TaskBase): Promise<void> {
         return reject(parseErr);
       }
 
-      obj.push({ ...task, id: nanoid() });
+      obj.push({ ...task, id: nanoid(), elapsedTime: 0 });
 
       fs.writeFile(filePath, JSON.stringify(obj, null, 2), 'utf-8', (writeErr) => {
         if (writeErr) return reject(writeErr);
@@ -80,14 +92,46 @@ export async function deleteTask(id: string): Promise<void> {
   });
 }
 
-// Read data from a file
-export function getTaskList(): TaskList {
+export function getTask(id: string): Task | null {
   ensureICSDirectory();
   const filePath = path.join(parentDirectoryPath, 'output.json');
   if (fs.existsSync(filePath)) {
     const data = fs.readFileSync(filePath, 'utf-8');
-    return JSON.parse(data);
-  } else {
-    return [];
+    const parsed: TaskList = JSON.parse(data);
+    const found = parsed.find((task) => task.id === id);
+    if (found) return found;
+    // return JSON.parse(data);
   }
+
+  return null;
+}
+
+export async function updateTaskTime(id: string, time: number): Promise<void> {
+  const filePath = path.join(parentDirectoryPath, 'output.json');
+  await ensureFileExistence(filePath);
+
+  return new Promise((resolve, reject) => {
+    fs.readFile(filePath, 'utf-8', (readErr, data) => {
+      if (readErr) return reject(readErr);
+
+      let obj: TaskList = [];
+      try {
+        obj = JSON.parse(data);
+      } catch (parseErr) {
+        return reject(parseErr);
+      }
+
+      const updatedObj = obj.map((task) => {
+        if (task.id === id) {
+          return { ...task, elapsedTime: time };
+        }
+        return task;
+      });
+
+      fs.writeFile(filePath, JSON.stringify(updatedObj, null, 2), 'utf-8', (writeErr) => {
+        if (writeErr) return reject(writeErr);
+        resolve();
+      });
+    });
+  });
 }

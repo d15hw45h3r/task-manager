@@ -4,7 +4,7 @@ type TaskBase = {
 
 interface Task extends TaskBase {
   id: string;
-  // isCompleted: boolean;
+  elapsedTime: number;
 }
 
 type TaskList = Task[];
@@ -13,6 +13,8 @@ type EventPayloadMapping = {
   getTaskList: TaskList;
   addTask: void;
   deleteTask: void;
+  getTask: Task | null;
+  updateTaskTime: void;
 };
 
 type UnsubscribeFunction = () => void;
@@ -22,5 +24,7 @@ interface Window {
     getTaskList: () => Promise<TaskList>;
     addTask: (data: TaskBase) => Promise<void>;
     deleteTask: (id: string) => Promise<void>;
+    getTask: (id: string) => Promise<Task | null>;
+    updateTaskTime: (id: string, time: number) => Promise<void>;
   };
 }

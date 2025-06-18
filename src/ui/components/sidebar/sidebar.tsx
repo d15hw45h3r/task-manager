@@ -5,9 +5,9 @@ import { IoClose } from 'react-icons/io5';
 
 interface SidebarProps {
   tasks: TaskList;
-  openTask: Task | null;
+  openTask: string | null;
   onDelete: (id: string) => void;
-  onOpen: (task: Task) => void;
+  onOpen: (taskId: string) => void;
   onAdd: (task: TaskBase) => void;
 }
 
@@ -52,9 +52,9 @@ const Sidebar: FC<SidebarProps> = ({ tasks, onDelete, openTask, onOpen, onAdd })
         <ul style={{ marginTop: '3rem' }}>
           {tasks.map((task, index) => (
             <li
-              className={`${styles.task} ${openTask?.id === task.id && styles.active}`}
+              className={`${styles.task} ${openTask === task.id && styles.active}`}
               key={index}
-              onClick={() => onOpen(task)}
+              onClick={() => onOpen(task.id)}
             >
               <p>{task.name}</p>
               <button onClick={() => onDelete(task.id)} className={styles.sm}>

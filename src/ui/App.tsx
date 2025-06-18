@@ -5,7 +5,7 @@ import CurrentTask from './components/currentTask/currentTask';
 
 function App() {
   const [tasks, setTasks] = useState<TaskList>([]);
-  const [openTask, setOpenTask] = useState<Task | null>(null);
+  const [openTask, setOpenTask] = useState<string | null>(null);
 
   useEffect(() => {
     getTasks();
@@ -13,7 +13,7 @@ function App() {
 
   useEffect(() => {
     if (openTask !== null) {
-      const found = tasks.find((t) => t.id === openTask?.id);
+      const found = tasks.find((t) => t.id === openTask);
       if (!found) setOpenTask(null);
     }
   }, [tasks, openTask]);
@@ -43,7 +43,7 @@ function App() {
           onOpen={(task) => setOpenTask(task)}
           openTask={openTask}
         />
-        <CurrentTask task={openTask} />
+        <CurrentTask taskId={openTask} />
       </div>
     </div>
   );
