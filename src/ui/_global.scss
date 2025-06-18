@@ -16,6 +16,27 @@ $sidebar: #2d3143 !default;
 html,
 body {
   background-color: $bg;
+  overflow: hidden;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: $bg;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgba(184, 193, 236, 0.14);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(184, 193, 236, 0.3);
 }
 
 input {

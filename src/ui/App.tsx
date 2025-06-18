@@ -39,11 +39,14 @@ function App() {
         <Sidebar
           tasks={tasks}
           onAdd={handleAddTask}
-          onDelete={handleDeleteTask}
           onOpen={(task) => setOpenTask(task)}
           openTask={openTask}
         />
-        <CurrentTask taskId={openTask} />
+        <CurrentTask
+          taskId={openTask}
+          onDelete={handleDeleteTask}
+          onUpdate={async () => await getTasks()}
+        />
       </div>
     </div>
   );

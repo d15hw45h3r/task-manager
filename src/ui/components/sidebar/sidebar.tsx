@@ -2,16 +2,16 @@ import { ChangeEventHandler, FC, useState } from 'react';
 import styles from './sidebar.module.scss';
 import { BiCheck } from 'react-icons/bi';
 import { IoClose } from 'react-icons/io5';
+import { formatDuration } from '../../utils';
 
 interface SidebarProps {
   tasks: TaskList;
   openTask: string | null;
-  onDelete: (id: string) => void;
   onOpen: (taskId: string) => void;
   onAdd: (task: TaskBase) => void;
 }
 
-const Sidebar: FC<SidebarProps> = ({ tasks, onDelete, openTask, onOpen, onAdd }) => {
+const Sidebar: FC<SidebarProps> = ({ tasks, openTask, onOpen, onAdd }) => {
   const [isInputvisible, setIsInputVisible] = useState<boolean>(false);
   const [input, setInput] = useState<string>('');
 
@@ -57,9 +57,10 @@ const Sidebar: FC<SidebarProps> = ({ tasks, onDelete, openTask, onOpen, onAdd })
               onClick={() => onOpen(task.id)}
             >
               <p>{task.name}</p>
-              <button onClick={() => onDelete(task.id)} className={styles.sm}>
+              <p className={styles.elapsed}>{formatDuration(task.elapsedTime)}</p>
+              {/* <button onClick={() => onDelete(task.id)} className={styles.sm}>
                 <IoClose size='1.3em' style={{ fill: '#eebbc3' }} />
-              </button>
+              </button> */}
             </li>
           ))}
         </ul>

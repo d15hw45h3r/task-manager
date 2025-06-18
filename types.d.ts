@@ -5,7 +5,13 @@ type TaskBase = {
 interface Task extends TaskBase {
   id: string;
   elapsedTime: number;
+  history: Timestamp[];
 }
+
+type Timestamp = {
+  start: Date;
+  end: Date;
+};
 
 type TaskList = Task[];
 
@@ -25,6 +31,6 @@ interface Window {
     addTask: (data: TaskBase) => Promise<void>;
     deleteTask: (id: string) => Promise<void>;
     getTask: (id: string) => Promise<Task | null>;
-    updateTaskTime: (id: string, time: number) => Promise<void>;
+    updateTaskTime: (id: string, time: number, timestamp: Timestamp) => Promise<void>;
   };
 }

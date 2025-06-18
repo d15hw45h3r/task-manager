@@ -6,6 +6,7 @@
   height: 100%;
   padding: 1rem;
   padding-top: 4rem;
+  overflow-y: auto;
 }
 
 .heading {
@@ -28,6 +29,9 @@ ul {
   cursor: pointer;
   &:hover {
     background-color: rgba(238, 187, 195, 0.2);
+  }
+  .elapsed {
+    color: $support;
   }
 }
 .active {

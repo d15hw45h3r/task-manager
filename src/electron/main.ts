@@ -32,7 +32,7 @@ app.on('ready', () => {
     return getTask(id);
   });
 
-  ipcMainHandle('updateTaskTime', async ({ id, time }) => {
-    return await updateTaskTime(id, time);
+  ipcMainHandle('updateTaskTime', async ({ id, time, timestamp }) => {
+    return await updateTaskTime(id, time, timestamp);
   });
 });

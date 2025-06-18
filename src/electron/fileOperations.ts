@@ -56,7 +56,7 @@ export async function addTask(task: TaskBase): Promise<void> {
         return reject(parseErr);
       }
 
-      obj.push({ ...task, id: nanoid(), elapsedTime: 0 });
+      obj.push({ ...task, id: nanoid(), elapsedTime: 0, history: [] });
 
       fs.writeFile(filePath, JSON.stringify(obj, null, 2), 'utf-8', (writeErr) => {
         if (writeErr) return reject(writeErr);
@@ -106,7 +106,11 @@ export function getTask(id: string): Task | null {
   return null;
 }
 
-export async function updateTaskTime(id: string, time: number): Promise<void> {
+export async function updateTaskTime(
+  id: string,
+  time: number,
+  timestamp: Timestamp
+): Promise<void> {
   const filePath = path.join(parentDirectoryPath, 'output.json');
   await ensureFileExistence(filePath);
 
@@ -123,7 +127,7 @@ export async function updateTaskTime(id: string, time: number): Promise<void> {
 
       const updatedObj = obj.map((task) => {
         if (task.id === id) {
-          return { ...task, elapsedTime: time };
+          return { ...task, elapsedTime: time, history: [timestamp, ...task.history] };
         }
         return task;
       });
